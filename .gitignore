@@ -1,0 +1,8 @@
+*.o
+*.out
+bsq
+file
+.DS_Store/
+a.out.dSYM/
+*_original
+map
