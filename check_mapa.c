@@ -1,23 +1,22 @@
 #include "bsq.h"
 
-int	open_file(char *str)
+int open_file(char *str)
 {
 	int	fd;
-
 	fd = open(str, O_RDONLY);
 	return (fd);
 }
 
-char	*get_params_map(char *str)
+char *get_params_map(char *str, t_bsq *bsq)
 {
 	int		fd1;
 	char	buffer[1];
-	int		i;
-	int		count_elems;
+	int 	i;
+	int 	count_elems;
 	char	*element_map;
 
 	i = 0;
-	count_elems = 0;
+	count_elems = 0; 	
 	fd1 = open_file(str);
 	while (read(fd1, &buffer, sizeof(char)) > 0)
 	{
@@ -37,6 +36,10 @@ char	*get_params_map(char *str)
 		i++;
 	}
 	element_map[i] = '\0';
+	bsq->c_empty = element_map[count_elems - 3];
+	bsq->c_obstacle = element_map[count_elems - 2];
+	bsq->c_fill = element_map[count_elems - 1];
+	
 	return (element_map);
 /*
 	if ((element_map[0] - '0') != lines)
@@ -45,7 +48,7 @@ char	*get_params_map(char *str)
 
 int ft_strlen(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while(str[i] != '\0')
@@ -60,7 +63,7 @@ int	ft_atoi(char *str)
 
 	i = 0;
 	j = 0;
-	while ((str[i] >= '0' && str[i] <= '9') && (i < (ft_strlen(str) - 2)))
+	while ((str[i] >= '0' && str[i] <= '9') && (i < (ft_strlen(str) - 2))) 
 	{
 		j = (j * 10) + (str[i] - '0');
 		i++;
@@ -68,14 +71,14 @@ int	ft_atoi(char *str)
 	return (j);
 }
 
-void	ft_putchar(char c)
+void ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-void	ft_putstr(char *str)
+void ft_putstr(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -86,26 +89,30 @@ void	ft_putstr(char *str)
 }
 
 
-int	read_file(char *str)
-{
+int read_file(char *str, t_bsq *bsq)
+{ 
 	int		fd1;
 	char	buffer[1];
 	int		counter = 0;
-	int		lines = 1;
-	int		check = 0;
+	int 	lines = 1;
+	int 	check = 0;
 
 
 	fd1 = open_file(str);
 	while (read(fd1, &buffer, sizeof(char)) > 0)
+	{
 		if(*buffer == '\n')
 			break ;
+	}
 	while (read(fd1, &buffer, sizeof(char)) > 0)
-	{
+	{	
 		check++;
 		if(*buffer == '\n')
 		{
 			if (check == 1)
+			{
 				return (0); //MAP ERROR
+			}
 			break ;
 		}
 	}
@@ -115,39 +122,46 @@ int	read_file(char *str)
 		if(*buffer == '\n')
 		{
 			if (counter == check)
-			{
+			{   
 				check = counter;
-				counter = 0;
+					counter = 0; 
 			}
 			else
+			{
 				return (0);//MAP ERROR
+			}
 		lines++;
 		}
 	}
-	if (ft_atoi(get_params_map(str)) != lines)
-	{
+	if(ft_atoi(get_params_map(str, bsq)) != lines)
+	{	
 		return(0);
 	}
 	close(fd1);
-	return (check);
+	return (check - 1);
 }
+
+
 
 void	create_map(char **map, char *str)
 {
-	int		fd1;
-	int		i;
-	int		j;
+	int	fd1;
+	int i;
+	int	j;
 	char	buffer[1];
 
 	i = 0;
 	j = 0;
 	fd1 = open_file(str);
 	while (read(fd1, &buffer, sizeof(char)) > 0)
+	{
 		if(*buffer == '\n')
 			break ;
+	}
 	while (read(fd1, &buffer, sizeof(char)) > 0)
 	{
-		map[i][j] = *buffer;
+		if (*buffer != '\n') 
+			map[i][j] = *buffer;
 		if(*buffer == '\n')
 		{
 			i++;
@@ -157,11 +171,13 @@ void	create_map(char **map, char *str)
 	}
 }
 
-int	check_elem_map(char *element_map)
+
+int check_elem_map(char *element_map)
 {
+	// Check parametros mapa
 	int k;
 	k = 0;
-	while (k < 4)
+	while (k < 4) 
 	{
 		if(!(element_map[k] >= 32 && element_map[k] <= 126))
 			return (0); // MAP ERROR
@@ -173,17 +189,19 @@ int	check_elem_map(char *element_map)
 	return (1);
 }
 
-int	check_mapas(char *str, t_bsq *bsq)
+int check_mapas(char *str, t_bsq *bsq)
 {
-	if (read_file(str) == 0 || check_elem_map(get_params_map(str)) == 0)
-	{
+	// Read_files
+	// get_params_map
+    if (read_file(str,bsq) == 0 || check_elem_map(get_params_map(str, bsq)) == 0)
+	{	
 		ft_putstr(ERROR_MSG);
 		return (0);
 	}
 	else
 	{
-		bsq->n_lines = ft_atoi(get_params_map(str)); // lineas
-		bsq->n_columns = read_file(str);
+		bsq->n_lines = ft_atoi(get_params_map(str,bsq)); // lineas
+		bsq->n_columns = read_file(str, bsq);
 	}
-	return (1);
+    return (1);
 }
