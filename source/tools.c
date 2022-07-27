@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dmoliner <dmoliner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 00:48:30 by dmoliner          #+#    #+#             */
-/*   Updated: 2022/07/27 15:54:43 by vquiroga         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:18:49 by dmoliner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ int	ft_atoi(t_string str)
 	while ((str[i] >= '0' && str[i] <= '9') && \
 		(i < (ft_strlen(str) - 2)))
 		j = (j * 10) + (str[i++] - '0');
-	printf("\n%d\n",j);
 	return (j);
 }

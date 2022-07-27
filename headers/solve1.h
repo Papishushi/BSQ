@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.h                                            :+:      :+:    :+:   */
+/*   solve1.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmoliner <dmoliner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/27 00:49:33 by dmoliner          #+#    #+#             */
-/*   Updated: 2022/07/27 17:20:16 by dmoliner         ###   ########.fr       */
+/*   Created: 2022/07/27 16:57:02 by dmoliner          #+#    #+#             */
+/*   Updated: 2022/07/27 17:12:55 by dmoliner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOOLS_H
-# define TOOLS_H
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
+#ifndef SOLVE1_H
+# define SOLVE1_H
+# include "tools.h"
+# include "map.h"
 
-typedef char*	t_string;
-typedef char**	t_matrix;
-typedef int **	t_mat_aux;
-typedef struct s_point
-{
-	int	x;
-	int	y;
-	int	value;
-}	t_point;
-
-void	ft_putchar(char c);
-void	ft_putstr(t_string str);
-int		ft_puterr(t_string str);
-int		ft_strlen(t_string str);
-int		ft_atoi(t_string str);
+int		min_value(t_point point, t_board *board);
+void	joga_bonito(t_board *board);
+t_point	final_fucking_result(t_board *board);
+void	final_change(t_board *board);
+void	put_obstacles(t_board *board);
 #endif

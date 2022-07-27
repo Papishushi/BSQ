@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dmoliner <dmoliner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 01:18:10 by ElTeam            #+#    #+#             */
-/*   Updated: 2022/07/27 15:59:53 by vquiroga         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:10:05 by dmoliner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
 # include "tools.h"
-# include "map.h"
 
 typedef struct s_board
 {

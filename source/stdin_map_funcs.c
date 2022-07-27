@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stdin_map_funcs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dmoliner <dmoliner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:58:38 by dmoliner          #+#    #+#             */
-/*   Updated: 2022/07/27 15:47:27 by vquiroga         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:18:59 by dmoliner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ static t_string	get_params_in(t_string str)
 int	check_maps_in(t_string str, t_board *board)
 {
 	if (str == NULL || check_elem_map(get_params_in(str)) == 0)
-	{printf("xdd\n");
 		return (ft_puterr_z(MAP_ERROR_MSG));
-	}
 	else
 	{
 		board->n_lines = ft_atoi(get_params_in(str));

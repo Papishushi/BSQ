@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   custom_io.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dmoliner <dmoliner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 00:56:29 by dmoliner          #+#    #+#             */
-/*   Updated: 2022/07/27 15:53:32 by vquiroga         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:42:25 by dmoliner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/custom_io.h"
 #include "../headers/check_maps.h"
 
-t_string read_std_input( void )
+t_string	read_std_input( void )
 {
 	int				fd;
 	char			buffer[1];
@@ -22,7 +22,7 @@ t_string read_std_input( void )
 	unsigned int	index;
 
 	lenght = 0;
-	fd = open(0, O_RDONLY); //ESTO TIRA UN ERROR POR EL WALL NO QUIERE QUE LE PASEMOS UN 0
+	fd = open(0, O_RDONLY);
 	while (read(fd, buffer, 1) > 0)
 			lenght++;
 	result = (char *)malloc(sizeof(char) * (lenght +1));
@@ -45,52 +45,67 @@ int	open_file(t_string str)
 	return (fd);
 }
 
-int	read_file(t_string str, t_board *board) //ESTO HAY QUE REDUCIRLO DE TAMAÑO
+static int	get_check(t_string str, int *fd1)
 {
-	int		fd1;
 	char	buffer[1];
-	int		counter;
-	int		lines;
 	int		check;
 
-	counter = 0;
-	lines = 1;
 	check = 0;
-	fd1 = open_file(str);
-	while (read(fd1, &buffer, 1) > 0)
+	*fd1 = open_file(str);
+	while (read(*fd1, &buffer, 1) > 0)
 		if (*buffer == '\n')
 			break ;
-	while (read(fd1, &buffer, 1) > 0)
+	while (read(*fd1, &buffer, 1) > 0)
 	{
 		check++;
 		if (*buffer == '\n')
 		{
 			if (check == 1)
-				{printf("aquii\n");
-				return (0);}
+				return (0);
 			break ;
 		}
 	}
-	while (read(fd1, &buffer, 1) > 0)
+	return (check);
+}
+
+static int	sus(int *fd1, int *check, int *lines)
+{
+	char	buffer[1];
+	int		counter;
+
+	counter = 0;
+	while (read(*fd1, &buffer, 1) > 0)
 	{
 		counter++;
 		if (*buffer == '\n')
 		{
-			if (counter == check)
+			if (counter == *check)
 			{
-				check = counter;
+				*check = counter;
 				counter = 0;
 			}
 			else
-			{printf("aquii\n");
-				return (0);}
-		lines++;
+				return (0);
+		(*lines)++;
 		}
 	}
-	if (ft_atoi(get_params_map(str, board)) != lines)
-	{printf("aquii\n");
+	return (1);
+}
+
+int	read_file(t_string str, t_board *board)
+{
+	int		fd1;
+	int		lines;
+	int		check;
+	int		is_not_err;
+
+	lines = 1;
+	check = get_check(str, &fd1);
+	if (!check)
 		return (0);
-	}
+	is_not_err = sus(&fd1, &check, &lines);
+	if (ft_atoi(get_params_map(str, board)) != lines)
+		return (0);
 	close(fd1);
 	return (check - 1);
 }

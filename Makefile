@@ -1,8 +1,8 @@
 ###############################################################################
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 SAN = -fsanitize=address
-CFILES = check_maps.c custom_io.c errors.c map.c solve.c stdin_map_funcs.c tools.c
+CFILES = check_maps.c custom_io.c errors.c map.c solve.c solve1.c stdin_map_funcs.c tools.c
 MAIN = main.o
 SRCS = ${addprefix source/,${CFILES}}
 OBJS = ${SRCS:.c=.o}
@@ -12,8 +12,8 @@ NAME = bsq
 ###############################################################################
 MAPGEN = map_generator.pl
 MAPNAME = map
-ROWS = 10000
-COLS = 1000
+ROWS = 100
+COLS = 100
 DENSITY = 2
 ###############################################################################
 RM = rm -f
