@@ -12,32 +12,31 @@ NAME = bsq
 ###############################################################################
 MAPGEN = map_generator.pl
 MAPNAME = map
-ROWS = 100
-COLS = 100
+ROWS = 50
+COLS = 50
 DENSITY = 2
 ###############################################################################
 RM = rm -f
 ###############################################################################
 .PHONY: clean fclean all test
 ###############################################################################
-all:		fclean ${MAPNAME} ${NAME} test
+all:		fclean ${MAPNAME} ${NAME} exec
 
-test:
+exec:
 		./${NAME} ${MAPNAME}
 
 ${NAME}:	${OBJS} ${MAIN}
 		@${CC} -o ${NAME} ${OBJS} ${MAIN}
 
 .c.o:
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I HEA
+		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${MAPNAME}:
 		@chmod +x ${MAPGEN}
 		@./${MAPGEN} ${COLS} ${ROWS} ${DENSITY} > ${MAPNAME}
-#		@cat ${MAPNAME}
 
 clean:
-		@${RM} ${OBJS}
+		@${RM} ${OBJS} ${MAIN}
 
 fclean:		clean
 		@${RM} ${NAME} ${MAPNAME}

@@ -6,7 +6,7 @@
 /*   By: dmoliner <dmoliner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 02:03:29 by ElTeam            #+#    #+#             */
-/*   Updated: 2022/07/27 17:18:15 by dmoliner         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:14:20 by dmoliner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	stdin_mode_calls(t_board *board, t_string input)
 		create_map_in(board->map, input);
 		ft_print_map(board->map, board->n_lines, board->n_columns);
 		create_aux_map(board);
-		ft_putchar('\n');
 		put_ones(board);
 		put_obstacles(board);
 		free(board->aux_map);
@@ -50,17 +49,16 @@ static int	stdin_mode_calls(t_board *board, t_string input)
 	return (ft_puterr_o(MAP_ERROR_MSG));
 }
 
-static int	arg_mode_calls(t_board *board, t_string argv[])
+static int	arg_mode_calls(t_board *board, t_string *argv, int i)
 {
-	check_maps(argv[1], board);
+	check_maps(argv[i], board);
 	create_board(board);
 	if (check_empty_board(board))
 		return (ft_puterr_o(MAP_ERROR_MSG));
 	if (board->map != NULL && board->aux_map != NULL)
 	{
-		create_map(board->map, argv[1]);
+		create_map(board->map, argv[i]);
 		create_aux_map(board);
-		ft_putchar('\n');
 		put_ones(board);
 		put_obstacles(board);
 		ft_print_map(board->map, board->n_lines, board->n_columns);
@@ -73,6 +71,7 @@ static int	arg_mode_calls(t_board *board, t_string argv[])
 
 int	main(int argc, char *argv[])
 {
+	int			i;
 	t_board		board;
 	t_string	input;
 
@@ -83,5 +82,17 @@ int	main(int argc, char *argv[])
 		return (stdin_mode_calls(&board, input));
 	}
 	else
-		return (arg_mode_calls(&board, argv));
+	{
+		i = 1;
+		while (i < argc)
+		{
+			if (arg_mode_calls(&board, argv, i))
+				return (1);
+			if (i < argc - 1)
+				ft_putchar('\n');
+			i++;
+		}
+	}
+	system("leaks bsq");
+	return (0);
 }

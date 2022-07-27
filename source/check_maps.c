@@ -6,7 +6,7 @@
 /*   By: dmoliner <dmoliner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 00:32:27 by dmoliner          #+#    #+#             */
-/*   Updated: 2022/07/27 17:37:36 by dmoliner         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:13:48 by dmoliner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	chk_gb_val(t_board *board, t_string element_map, \
 		board->c_obstacle = element_map[count_elems - 2];
 	if (count_elems - 1 >= 0)
 		board->c_fill = element_map[count_elems - 1];
+	free(element_map);
 }
 
 static int	count_elems(t_string str)
@@ -88,7 +89,7 @@ int	check_maps(t_string str, t_board *board)
 {
 	if (read_file(str, board) == 0 || \
 		check_elem_map(get_params_map(str, board)) == 0)
-		return (ft_puterr_z(MAP_ERROR_MSG));
+		return (ft_puterr_o(MAP_ERROR_MSG));
 	else
 	{
 		board->n_lines = ft_atoi(get_params_map(str, board));
