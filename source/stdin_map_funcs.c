@@ -6,7 +6,7 @@
 /*   By: dmoliner <dmoliner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 21:58:38 by dmoliner          #+#    #+#             */
-/*   Updated: 2022/07/27 18:00:05 by dmoliner         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:32:01 by dmoliner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_string	get_params_in(t_string str)
 	while (str[count_elems] != '\0')
 		if (str[count_elems++] == '\n')
 			break ;
-	element_map = malloc(sizeof(char) * count_elems + 1);
+	element_map = (char *)malloc(sizeof(char) * (count_elems + 1));
 	while (str[i] != '\0' && i < count_elems)
 	{
 		element_map[i] = str[i];

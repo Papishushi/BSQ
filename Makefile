@@ -1,7 +1,6 @@
 ###############################################################################
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SAN = -fsanitize=address
 CFILES = check_maps.c custom_io.c errors.c map.c solve.c solve1.c stdin_map_funcs.c tools.c
 MAIN = main.o
 SRCS = ${addprefix source/,${CFILES}}

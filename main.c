@@ -6,7 +6,7 @@
 /*   By: dmoliner <dmoliner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 02:03:29 by ElTeam            #+#    #+#             */
-/*   Updated: 2022/07/27 18:14:20 by dmoliner         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:31:07 by dmoliner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ static int	arg_mode_calls(t_board *board, t_string *argv, int i)
 		put_ones(board);
 		put_obstacles(board);
 		ft_print_map(board->map, board->n_lines, board->n_columns);
-		free(board->aux_map);
-		free(board->map);
 		return (0);
 	}
 	return (ft_puterr_o(MAP_ERROR_MSG));
@@ -93,6 +91,5 @@ int	main(int argc, char *argv[])
 			i++;
 		}
 	}
-	system("leaks bsq");
 	return (0);
 }
