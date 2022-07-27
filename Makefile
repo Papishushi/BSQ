@@ -19,7 +19,7 @@ RM = rm -f
 ###############################################################################
 .PHONY: clean fclean all test
 ###############################################################################
-all:		fclean ${MAPNAME} ${NAME} exec
+all:		fclean ${NAME} exec
 
 exec:
 		./${NAME} ${MAPNAME}
@@ -29,10 +29,6 @@ ${NAME}:	${OBJS} ${MAIN}
 
 .c.o:
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-
-${MAPNAME}:
-		@chmod +x ${MAPGEN}
-		@./${MAPGEN} ${COLS} ${ROWS} ${DENSITY} > ${MAPNAME}
 
 clean:
 		@${RM} ${OBJS} ${MAIN}
