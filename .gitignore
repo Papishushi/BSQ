@@ -2,7 +2,10 @@
 *.out
 bsq
 file
-.DS_Store/
-a.out.dSYM/
+.DS_Store
+a.out.dSYM
+.vscode
 *_original
 map
+.exe
+.pdf
