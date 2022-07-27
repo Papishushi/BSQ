@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ElTeam <elTeam@bsq.com>                    +#+  +:+       +#+        */
+/*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 02:19:54 by ElTeam            #+#    #+#             */
-/*   Updated: 2022/07/27 03:03:16 by ElTeam           ###   ########.fr       */
+/*   Updated: 2022/07/27 15:19:28 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ int	ft_puterr_o(t_string str)
 	i = 0;
 	while (str[i] != '\0')
 		ft_putchar(str[i++]);
-	return (0);
+	return (1);
 }

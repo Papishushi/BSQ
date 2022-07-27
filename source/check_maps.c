@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ElTeam <elTeam@bsq.com>                    +#+  +:+       +#+        */
+/*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 00:32:27 by dmoliner          #+#    #+#             */
-/*   Updated: 2022/07/27 03:55:56 by ElTeam           ###   ########.fr       */
+/*   Updated: 2022/07/27 16:23:24 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ t_string	get_params_map(t_string str, t_board *board)
 		if (*buffer == '\n')
 			break ;
 		element_map[i++] = *buffer;
+		
 	}
 	element_map[i] = '\0';
 	chk_gb_val(board, element_map, count);
+	printf("%s\n" , element_map);
 	return (element_map);
 }
 
@@ -69,15 +71,18 @@ int	check_elem_map(t_string element_map)
 {
 	int	k;
 
-	k = 0;
-	while (k < 4)
+	k = ft_strlen(element_map) - 3;
+	while (k < ft_strlen(element_map))
 	{
 		if (!(element_map[k] >= 32 && element_map[k] <= 126))
 			return (0);
-		if (element_map[k] == element_map[k + 1])
-			return (0);
 		k++;
 	}
+	k = 0;
+	if (element_map[k] == element_map[k + 1] && \
+		element_map[k + 1]	== element_map[k + 2] && \
+		element_map[k]	== element_map[k + 2]) 
+		return (0);
 	return (1);
 }
 
@@ -85,7 +90,11 @@ int	check_maps(t_string str, t_board *board)
 {
 	if (read_file(str, board) == 0 || \
 		check_elem_map(get_params_map(str, board)) == 0)
-		return (ft_puterr_z(MAP_ERROR_MSG));
+		{
+			printf("xd");	
+			return (ft_puterr_z(MAP_ERROR_MSG));
+
+		}
 	else
 	{
 		board->n_lines = ft_atoi(get_params_map(str, board));

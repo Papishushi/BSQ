@@ -1,14 +1,19 @@
 ###############################################################################
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-CFILES = check_mapa.c main.c solve.c
-OBJS = ${CFILES:.c=.o}
+CFLAGS = -Wall -Wextra -Werror 
+SAN = -fsanitize=address
+CFILES = check_maps.c custom_io.c errors.c map.c solve.c stdin_map_funcs.c tools.c
+MAIN = main.o
+SRCS = ${addprefix source/,${CFILES}}
+OBJS = ${SRCS:.c=.o}
+HFILES = check_maps.h custom_io.h errors.h map.h solve.h tools.h
+HDRS = ${addprefix headers/,${HFILES}}
 NAME = bsq
 ###############################################################################
 MAPGEN = map_generator.pl
 MAPNAME = map
-ROWS = 10
-COLS = 20
+ROWS = 10000
+COLS = 1000
 DENSITY = 2
 ###############################################################################
 RM = rm -f
@@ -20,13 +25,16 @@ all:		fclean ${MAPNAME} ${NAME} test
 test:
 		./${NAME} ${MAPNAME}
 
-${NAME}:	${OBJS}
-		@${CC} -o ${NAME} ${OBJS}
+${NAME}:	${OBJS} ${MAIN}
+		@${CC} -o ${NAME} ${OBJS} ${MAIN}
+
+.c.o:
+		${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I HEA
 
 ${MAPNAME}:
 		@chmod +x ${MAPGEN}
 		@./${MAPGEN} ${COLS} ${ROWS} ${DENSITY} > ${MAPNAME}
-		@cat ${MAPNAME}
+#		@cat ${MAPNAME}
 
 clean:
 		@${RM} ${OBJS}

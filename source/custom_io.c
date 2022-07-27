@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_io.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ElTeam <elTeam@bsq.com>                    +#+  +:+       +#+        */
+/*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 00:56:29 by dmoliner          #+#    #+#             */
-/*   Updated: 2022/07/27 04:11:41 by ElTeam           ###   ########.fr       */
+/*   Updated: 2022/07/27 15:53:32 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_string read_std_input( void )
 	fd = open(0, O_RDONLY); //ESTO TIRA UN ERROR POR EL WALL NO QUIERE QUE LE PASEMOS UN 0
 	while (read(fd, buffer, 1) > 0)
 			lenght++;
-	result = malloc(sizeof(char *) + sizeof(char) * lenght +1);
+	result = (char *)malloc(sizeof(char) * (lenght +1));
 	index = 0;
 	while (read(0, buffer, 1) > 0)
 	{
@@ -66,7 +66,8 @@ int	read_file(t_string str, t_board *board) //ESTO HAY QUE REDUCIRLO DE TAMAÑO
 		if (*buffer == '\n')
 		{
 			if (check == 1)
-				return (0);
+				{printf("aquii\n");
+				return (0);}
 			break ;
 		}
 	}
@@ -81,12 +82,15 @@ int	read_file(t_string str, t_board *board) //ESTO HAY QUE REDUCIRLO DE TAMAÑO
 				counter = 0;
 			}
 			else
-				return (0);
+			{printf("aquii\n");
+				return (0);}
 		lines++;
 		}
 	}
 	if (ft_atoi(get_params_map(str, board)) != lines)
+	{printf("aquii\n");
 		return (0);
+	}
 	close(fd1);
 	return (check - 1);
 }

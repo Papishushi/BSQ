@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ElTeam <elTeam@bsq.com>                    +#+  +:+       +#+        */
+/*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 01:20:54 by ElTeam            #+#    #+#             */
-/*   Updated: 2022/07/27 03:57:09 by ElTeam           ###   ########.fr       */
+/*   Updated: 2022/07/27 15:47:25 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	create_board(t_board *board)
 
 	i = 0;
 	board->map = malloc(sizeof(t_string) * board->n_lines);
-	board->aux_map = malloc(sizeof(t_string) * board->n_lines);
+	board->aux_map = malloc(sizeof(t_mat_aux) * board->n_lines);
 	while (i < board->n_lines)
 	{
 		board->map[i] = malloc(sizeof(char) * board->n_columns);
-		board->aux_map[i] = malloc(sizeof(char) * board->n_columns);
+		board->aux_map[i] = malloc(sizeof(int) * board->n_columns);
 		i++;
 	}
 }
